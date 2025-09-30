@@ -1,0 +1,45 @@
+---
+description: This rule defines how the AI agent should manage and utilize memory improve coding consistency.
+globs: *
+alwaysApply: false
+---
+
+# Project Memory
+
+This file stores project-specific knowledge, conventions, and user preferences learned by the AI assistant.
+
+## User Preferences
+
+- **Task List Structure**: Prefer detailed phase-based task lists with clear checkpoints for review
+- **API Integration**: Use mock responses during development, with explicit tasks for removing mocks and integrating real APIs
+
+## Technical Decisions
+
+- **Early Return Pattern**: Prefer early return pattern over nested if statements for better code readability. Use early returns to reduce nesting levels and improve code flow. For example, instead of `if (condition) { if (nestedCondition) { return value } }`, use `if (!condition) return null; if (!nestedCondition) return null; return value;`.
+
+- **Absolute Path Usage**: Use absolute paths with `@/` prefix for files that are more than one level away. For files that are only one level away (e.g., `../`), relative paths are acceptable. Use `@/lib/AyLocale`, `@/constants`, `@/assets/icon/logo.png` instead of `../../../../lib/AyLocale`, `../../../../constants`, `../../../../assets/icon/logo.png`. However, `../styled` or `../constants` are acceptable. This improves code readability, maintainability, and prevents path errors when files are moved or restructured.
+
+## Project Conventions
+
+- **Documentation Organization**:
+
+  - Main task index file (`README.md`) at project root for overview
+  - Detailed feature task lists stored in `docs/tasks/` folder
+  - Use UPPERCASE naming for all project-level documents
+  - Link detailed documentation from main task index
+
+- **Task List Management**:
+  - Keep `README.md` as a clean overview index with minimal information
+  - Detailed progress tracking should be managed in individual feature task lists
+  - `README.md` should only show: feature name, status, documentation link, and brief description
+  - **Progress Tracking Strategy**:
+    - Use `README.md` for feature overview and navigation
+    - Use individual feature documents for detailed phase progress
+    - This provides clean separation of concerns and prevents information overload
+
+- **React Native + Expo Learning Project Structure**:
+  - Main learning guide in `README.md` with overview and navigation
+  - Detailed weekly/daily tasks in `docs/tasks/` with UPPERCASE naming
+  - Each task file contains: objectives, learning topics, implementation tasks, acceptance criteria, troubleshooting
+  - Focus on practical learning with 20% reading, 80% hands-on implementation
+  - Progressive complexity from basic RN concepts to advanced Expo ecosystem integration
