@@ -15,6 +15,8 @@ This file stores project-specific knowledge, conventions, and user preferences l
 
 ## Technical Decisions
 
+- **Package Manager**: Use yarn for package management throughout the project. When creating new React Native projects, use `yarn create react-native-app` instead of `npx react-native init` to maintain consistency with yarn ecosystem and avoid npm/yarn conflicts.
+
 - **Early Return Pattern**: Prefer early return pattern over nested if statements for better code readability. Use early returns to reduce nesting levels and improve code flow. For example, instead of `if (condition) { if (nestedCondition) { return value } }`, use `if (!condition) return null; if (!nestedCondition) return null; return value;`.
 
 - **Absolute Path Usage**: Use absolute paths with `@/` prefix for files that are more than one level away. For files that are only one level away (e.g., `../`), relative paths are acceptable. Use `@/lib/AyLocale`, `@/constants`, `@/assets/icon/logo.png` instead of `../../../../lib/AyLocale`, `../../../../constants`, `../../../../assets/icon/logo.png`. However, `../styled` or `../constants` are acceptable. This improves code readability, maintainability, and prevents path errors when files are moved or restructured.
