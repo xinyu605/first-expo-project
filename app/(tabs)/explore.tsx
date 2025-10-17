@@ -62,7 +62,7 @@ export default function TabTwoScreen() {
           </ThemedText>
           <Image
             source={require('@/assets/images/react-logo.png')}
-            style={{ width: 100, height: 100, alignSelf: 'center' }}
+            style={styles.reactLogo}
           />
           <ExternalLink href="https://reactnative.dev/docs/images">
             <ThemedText type="link">Learn more</ThemedText>
@@ -112,5 +112,10 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
+  },
+  reactLogo: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
   },
 });

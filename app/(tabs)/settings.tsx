@@ -1,5 +1,3 @@
-import { SettingItem, SettingsItem } from '@/components/settings';
-import { commonStyles } from '@/styles/common';
 import React, { useState } from 'react';
 import {
   Alert,
@@ -9,6 +7,9 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { SettingItem, SettingsItem } from '@/components/settings';
+import { commonStyles } from '@/styles/common';
 
 const SettingsScreen = () => {
   const [darkMode, setDarkMode] = useState(false);

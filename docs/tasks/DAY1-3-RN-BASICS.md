@@ -20,17 +20,20 @@
   - 理解響應式設計原則
 
 ### 平台差異處理
-- [ ] **Platform.select()**
+- [x] **Platform.select()**
   - 了解平台特定樣式設定
   - 掌握條件式渲染技巧
+  - 理解不適用於元件層級的平台差異
 
-- [ ] **PlatformColor**
+- [x] **PlatformColor**
   - 了解系統色彩的使用
   - 掌握深色/淺色模式支援
+  - 理解 iOS/Android 系統色彩差異
 
-- [ ] **安全區處理**
+- [x] **安全區處理**
   - 了解 SafeAreaView 的使用
   - 掌握不同裝置的適配
+  - 理解 SafeAreaProvider 的配置
 
 ### List 與效能
 - [ ] **FlatList 正確參數**
@@ -102,18 +105,25 @@
 ### 技術理解
 - [ ] 能說明 FlatList 為何需要 `keyExtractor` 與 `getItemLayout`
 - [x] 能解釋 Flexbox 佈局的基本原理
-- [ ] 能說明 Platform.select() 的使用時機
+- [x] 能說明 Platform.select() 的使用時機
+- [x] 能說明 PlatformColor 的用途與系統色彩使用
+- [x] 能解釋 SafeAreaView 與 SafeAreaProvider 的配置
 - [ ] 能解釋 AsyncStorage 的資料儲存機制
 
 ### 實作能力
 - [x] 能在 iOS/Android 都跑起 3 個頁面的導航流程
 - [ ] 能實作基本的 CRUD 功能
-- [ ] 能處理不同平台的樣式差異
+- [x] 能處理不同平台的樣式差異
+- [x] 能實作 SafeAreaView 的正確配置
+- [x] 能使用 ESLint 進行程式碼品質檢查
 - [ ] 能實作基本的錯誤處理
 
 ### 效能最佳化
 - [ ] 能使用適當的 FlatList 參數
 - [x] 能避免不必要的 re-render
+- [x] 能使用 React.memo 進行元件最佳化
+- [x] 能將 inline style 移到 StyleSheet 提升效能
+- [x] 能移除未使用的樣式保持程式碼整潔
 - [ ] 能實作基本的記憶體管理
 
 ## 常見問題與解決方案
@@ -122,11 +132,21 @@
 - **列表滾動卡頓**：檢查 FlatList 參數設定
 - **記憶體洩漏**：確保正確清理事件監聽器
 - **初始載入慢**：實作適當的載入狀態
+- **Inline style 效能問題**：將重複使用的樣式移到 StyleSheet
+- **不必要的 re-render**：使用 React.memo 和適當的依賴陣列
 
 ### 平台相容性
 - **樣式差異**：使用 Platform.select() 處理
 - **功能差異**：實作平台特定邏輯
 - **測試覆蓋**：確保兩個平台都能正常運作
+- **SafeAreaView 不生效**：確保在根元件配置 SafeAreaProvider
+- **ESLint 誤報**：使用適當的 eslint-disable 註解處理基礎元件
+
+### 程式碼品質
+- **ESLint 設定**：安裝並配置 eslint-plugin-react-native
+- **Node.js 版本**：使用 nvm 管理版本相容性
+- **Import 順序**：使用 ESLint 自動排序 import 語句
+- **未使用樣式**：定期檢查並移除未使用的 StyleSheet
 
 ## 下一步
 完成 Day 1-3 後，將進入 [Day 4-5: 除錯、測試與效能](./DAY4-5-DEBUG-TEST.md)，學習除錯技巧與效能最佳化。

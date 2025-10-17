@@ -1,4 +1,5 @@
 import { Image } from 'expo-image';
+import { Link } from 'expo-router';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -7,7 +8,6 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { commonStyles } from '@/styles/common';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   return (
