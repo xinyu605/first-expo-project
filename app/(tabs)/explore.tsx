@@ -3,10 +3,10 @@ import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Collapsible from '@/components/common/Collapsible';
+import ExternalLink from '@/components/common/ExternalLink';
 import IconSymbol from '@/components/common/IconSymbol';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import ExternalLink from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
