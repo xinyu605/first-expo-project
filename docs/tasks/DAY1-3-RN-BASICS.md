@@ -3,18 +3,18 @@
 ## 必學主題
 
 ### Core Components
-- [ ] **View/Text/Image/ScrollView/TextInput**
+- [x] **View/Text/Image/ScrollView/TextInput**
   - 了解各元件的用途與基本屬性
   - 掌握樣式設定與事件處理
   - 理解平台差異與相容性
 
 ### StyleSheet 與 Flexbox 版面
-- [ ] **StyleSheet API**
+- [x] **StyleSheet API**
   - 了解 StyleSheet.create() 的使用
   - 掌握樣式繼承與組合
   - 理解效能最佳化原則
 
-- [ ] **Flexbox 佈局**
+- [x] **Flexbox 佈局**
   - 掌握 flexDirection、justifyContent、alignItems
   - 了解 flex 屬性的使用
   - 理解響應式設計原則
@@ -45,7 +45,7 @@
   - 掌握 Tab Navigator 的使用
   - 理解導航參數傳遞
 
-- [ ] **Expo Router 基礎**
+- [x] **Expo Router 基礎**
   - 了解檔案式路由概念
   - 掌握基本路由設定
 
@@ -76,13 +76,13 @@
   - 支援編輯功能
   - 實作返回導航
 
-- [ ] **設定頁面**
+- [x] **設定頁面**
   - 應用程式設定選項
   - 主題切換功能
   - 資料匯出/匯入
 
 #### 技術實作
-- [ ] **導航結構**
+- [x] **導航結構**
   - 使用 React Navigation 或 Expo Router
   - 實作三個頁面間的導航
   - 設定適當的導航標題
@@ -92,7 +92,7 @@
   - 實作資料載入與儲存邏輯
   - 處理資料同步問題
 
-- [ ] **UI/UX 設計**
+- [x] **UI/UX 設計**
   - 實作響應式佈局
   - 支援不同螢幕尺寸
   - 實作基本的動畫效果
@@ -101,19 +101,19 @@
 
 ### 技術理解
 - [ ] 能說明 FlatList 為何需要 `keyExtractor` 與 `getItemLayout`
-- [ ] 能解釋 Flexbox 佈局的基本原理
+- [x] 能解釋 Flexbox 佈局的基本原理
 - [ ] 能說明 Platform.select() 的使用時機
 - [ ] 能解釋 AsyncStorage 的資料儲存機制
 
 ### 實作能力
-- [ ] 能在 iOS/Android 都跑起 3 個頁面的導航流程
+- [x] 能在 iOS/Android 都跑起 3 個頁面的導航流程
 - [ ] 能實作基本的 CRUD 功能
 - [ ] 能處理不同平台的樣式差異
 - [ ] 能實作基本的錯誤處理
 
 ### 效能最佳化
 - [ ] 能使用適當的 FlatList 參數
-- [ ] 能避免不必要的 re-render
+- [x] 能避免不必要的 re-render
 - [ ] 能實作基本的記憶體管理
 
 ## 常見問題與解決方案
