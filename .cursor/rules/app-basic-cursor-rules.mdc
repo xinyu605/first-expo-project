@@ -70,9 +70,11 @@ type Props = TouchableOpacityProps & {
   // additional props
 };
 
-export const Button = (props: Props) => {
+const Button = (props: Props) => {
   // component implementation
 };
+
+export default Button;
 ````
 
 - Type vs Interface Usage
