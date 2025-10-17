@@ -2,10 +2,10 @@ import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import ThemedText from '@/components/common/ThemedText';
+import ThemedView from '@/components/common/ThemedView';
 import ExternalLink from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import ThemedText from '@/components/ThemedText';
-import ThemedView from '@/components/ThemedView';
 import Collapsible from '@/components/ui/Collapsible';
 import IconSymbol from '@/components/ui/IconSymbol';
 import { useTheme } from '@/hooks/useTheme';

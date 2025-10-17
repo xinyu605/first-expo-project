@@ -3,10 +3,10 @@ import { Link } from 'expo-router';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import ThemedText from '@/components/common/ThemedText';
+import ThemedView from '@/components/common/ThemedView';
 import HelloWave from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import ThemedText from '@/components/ThemedText';
-import ThemedView from '@/components/ThemedView';
 import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
 import { fontSizes, fontWeights, spacing } from '@/theme';

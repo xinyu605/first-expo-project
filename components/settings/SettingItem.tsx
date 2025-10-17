@@ -4,10 +4,10 @@ import {
   Switch,
   Text,
   TextInput,
-  TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 
+import ThemedButton from '@/components/common/ThemedButton';
 import { useTheme } from '@/hooks/useTheme';
 import { spacing } from '@/theme';
 
@@ -59,9 +59,13 @@ const SettingItem = React.memo(({ item, onUserNameChange }: Props) => {
       );
     case 'button':
       return (
-        <TouchableOpacity style={styles.buttonItem} onPress={item.onPress}>
-          <Text style={[styles.buttonText, { color: colors.primary }]}>{item.title}</Text>
-        </TouchableOpacity>
+        <ThemedButton
+          title={item.title}
+          onPress={item.onPress}
+          variant="primary"
+          size="medium"
+          style={styles.buttonItem}
+        />
       );
     default:
       return null;
@@ -89,12 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonItem: {
-    padding: spacing[4],
-    alignItems: 'center',
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: '500',
+    margin: spacing[4],
   },
 });
 

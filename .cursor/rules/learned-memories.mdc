@@ -25,6 +25,44 @@ This file stores project-specific knowledge, conventions, and user preferences l
 
 - **Component Definition Pattern**: All components must use default export and const arrow function syntax. Use `const ComponentName = () => {}` instead of `function ComponentName() {}`. This ensures consistency across the codebase and follows modern React patterns.
 
+- **ThemedButton Component Pattern**: Use ThemedButton component instead of TouchableOpacity + Text combinations for better consistency and maintainability. ThemedButton provides:
+  - Multiple variants: primary, secondary, danger
+  - Multiple sizes: small, medium, large  
+  - Built-in theme integration
+  - Consistent styling across the app
+  - Better accessibility support
+  - **Minimal API Surface**: Only exposes necessary props (title, variant, size, disabled, onPress, style) following the principle of least privilege
+
+  Example usage:
+  ```typescript
+  <ThemedButton 
+    title="按鈕文字"
+    onPress={handlePress}
+    variant="primary"
+    size="medium"
+  />
+  ```
+
+- **Component API Design Principle**: Follow the "Principle of Least Privilege" for component APIs. Only expose the minimum necessary props to maintain consistency and prevent style fragmentation. Avoid inheriting all parent component props unless absolutely necessary.
+
+- **Component File Structure**: Organize components with clear separation of concerns:
+  - **Common Components**: Place reusable themed components in `components/common/`
+  - **Complex Components**: Use folder structure with `index.tsx` and `types.ts` for components with multiple files
+  - **Type Exports**: Export types separately for better reusability and cleaner imports
+  - **Props Type Pattern**: Use `Props` type inside component files, don't export component props. External usage should use `ComponentProps<typeof ComponentName>` instead
+  - **Example Structure**:
+    ```
+    components/
+    ├── common/
+    │   ├── ThemedButton/
+    │   │   ├── index.tsx        # Contains Props type internally
+    │   │   └── types.ts        # Only exports reusable Union types
+    │   ├── ThemedText.tsx
+    │   └── ThemedView.tsx
+    ├── ui/
+    └── settings/
+    ```
+
 - **Conditional Logic Readability**: Use helper functions with early returns for complex conditional logic. Instead of nested if-else statements or complex ternary operators, create helper functions like `getColor()` or `getBackgroundColor()` that use early returns. This pattern is more readable, follows the early return convention, and makes the code easier to test and maintain.
 
 - **Absolute Path Usage**: Use absolute paths with `@/` prefix for files that are more than one level away. For files that are only one level away (e.g., `../`), relative paths are acceptable. Use `@/lib/AyLocale`, `@/constants`, `@/assets/icon/logo.png` instead of `../../../../lib/AyLocale`, `../../../../constants`, `../../../../assets/icon/logo.png`. However, `../styled` or `../constants` are acceptable. This improves code readability, maintainability, and prevents path errors when files are moved or restructured.
