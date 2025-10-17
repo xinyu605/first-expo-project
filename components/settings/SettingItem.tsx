@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-imports */
 import React from 'react';
 import {
   StyleSheet,
@@ -8,6 +7,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import { useTheme } from '@/hooks/useTheme';
+import { spacing } from '@/theme';
 
 export type SettingsItem = {
   id: string;
@@ -23,36 +25,42 @@ type Props = {
 };
 
 const SettingItem = React.memo(({ item, onUserNameChange }: Props) => {
+  const { colors } = useTheme();
+  
+  const getSwitchColors = () => ({
+    trackColor: { false: colors.border, true: colors.primary },
+    thumbColor: item.value ? colors.warning : colors.surface,
+  });
+
   switch (item.type) {
     case 'switch':
       return (
         <View style={styles.settingItem}>
-          <Text style={styles.settingTitle}>{item.title}</Text>
+          <Text style={[styles.settingTitle, { color: colors.text }]}>{item.title}</Text>
           <Switch
             value={item.value as boolean}
             onValueChange={item.onPress}
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={item.value ? '#f5dd4b' : '#f4f3f4'}
+            {...getSwitchColors()}
           />
         </View>
       );
     case 'input':
       return (
         <View style={styles.settingItem}>
-          <Text style={styles.settingTitle}>{item.title}</Text>
+          <Text style={[styles.settingTitle, { color: colors.text }]}>{item.title}</Text>
           <TextInput
-            style={styles.textInput}
+            style={[styles.textInput, { borderColor: colors.border, color: colors.text }]}
             value={item.value as string}
             onChangeText={onUserNameChange}
             placeholder="請輸入使用者名稱"
-            placeholderTextColor="#999"
+            placeholderTextColor={colors.placeholder}
           />
         </View>
       );
     case 'button':
       return (
         <TouchableOpacity style={styles.buttonItem} onPress={item.onPress}>
-          <Text style={styles.buttonText}>{item.title}</Text>
+          <Text style={[styles.buttonText, { color: colors.primary }]}>{item.title}</Text>
         </TouchableOpacity>
       );
     default:
@@ -67,29 +75,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    padding: spacing[4],
   },
   settingTitle: {
     fontSize: 16,
-    color: '#333',
   },
   textInput: {
     flex: 1,
-    marginLeft: 16,
-    padding: 8,
+    marginLeft: spacing[4],
+    padding: spacing[2],
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 4,
+    borderRadius: spacing[1],
     fontSize: 16,
-    color: '#333',
   },
   buttonItem: {
-    padding: 16,
+    padding: spacing[4],
     alignItems: 'center',
   },
   buttonText: {
     fontSize: 16,
-    color: '#007AFF',
     fontWeight: '500',
   },
 });
