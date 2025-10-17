@@ -52,20 +52,6 @@ module.exports = defineConfig([
           },
         },
       ],
-      
-      // 自定義規則：建議使用 SafeAreaView（僅針對頁面元件）
-      'no-restricted-imports': [
-        'warn',
-        {
-          patterns: [
-            {
-              group: ['react-native'],
-              importNames: ['View'],
-              message: 'It is recommended to use SafeAreaView instead of View as the root container in page components to ensure proper handling of safe areas.',
-            },
-          ],
-        },
-      ],
     },
   },
 ]);
