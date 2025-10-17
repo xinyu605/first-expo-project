@@ -52,6 +52,7 @@ module.exports = defineConfig([
           },
         },
       ],
+      'import/no-cycle': 'error', // 檢測循環 import
     },
   },
 ]);

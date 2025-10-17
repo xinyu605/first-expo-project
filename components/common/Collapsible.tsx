@@ -1,9 +1,9 @@
 import { PropsWithChildren, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
+import IconSymbol from '@/components/common/IconSymbol';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import IconSymbol from '@/components/ui/IconSymbol';
 import { useTheme } from '@/hooks/useTheme';
 
 const Collapsible = ({ children, title }: PropsWithChildren & { title: string }) => {
