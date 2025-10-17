@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ThemedButton from '@/components/common/ThemedButton';
 import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
-import { fontSizes, fontWeights } from '@/theme';
+import { fontSizes, fontWeights, spacing } from '@/theme';
 
 type TodoItem = {
   id: string;
@@ -158,24 +158,24 @@ const TodoListScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: spacing[4],
   },
   headerTitle: {
     fontSize: fontSizes['2xl'],
     fontWeight: fontWeights.bold,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: spacing[5],
   },
   inputContainer: {
     flexDirection: 'row',
-    marginBottom: 20,
-    gap: 12,
+    marginBottom: spacing[5],
+    gap: spacing[3],
   },
   textInput: {
     flex: 1,
-    padding: 12,
+    padding: spacing[3],
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: spacing[2],
     fontSize: fontSizes.base,
   },
   list: {
@@ -184,9 +184,9 @@ const styles = StyleSheet.create({
   todoItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    marginBottom: 8,
-    borderRadius: 8,
+    padding: spacing[4],
+    marginBottom: spacing[2],
+    borderRadius: spacing[2],
     shadowOffset: {
       width: 0,
       height: 1,
@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderWidth: 2,
-    borderRadius: 12,
-    marginRight: 12,
+    borderRadius: spacing[3],
+    marginRight: spacing[3],
     justifyContent: 'center',
     alignItems: 'center',
   },
