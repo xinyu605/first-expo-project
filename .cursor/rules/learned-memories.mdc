@@ -19,6 +19,8 @@ This file stores project-specific knowledge, conventions, and user preferences l
 
 - **Early Return Pattern**: Prefer early return pattern over nested if statements for better code readability. Use early returns to reduce nesting levels and improve code flow. For example, instead of `if (condition) { if (nestedCondition) { return value } }`, use `if (!condition) return null; if (!nestedCondition) return null; return value;`.
 
+- **Style Performance Optimization**: Use hybrid approach for optimal performance. Put static properties (layout, spacing, font sizes) in StyleSheet.create() for one-time calculation, and use inline styles only for theme-dependent colors. Avoid dynamic StyleSheet.create() inside components as it recalculates on every render.
+
 - **Spacing System**: Use the standardized spacing system based on 4px grid. Import `spacing` from `@/theme` and use `spacing[number]` for consistent spacing values (e.g., `spacing[4]` for 16px). This ensures all margins, padding, and gaps follow a consistent scale.
 
 - **Component Definition Pattern**: All components must use default export and const arrow function syntax. Use `const ComponentName = () => {}` instead of `function ComponentName() {}`. This ensures consistency across the codebase and follows modern React patterns.

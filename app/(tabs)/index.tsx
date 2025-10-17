@@ -7,9 +7,13 @@ import HelloWave from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import ThemedText from '@/components/ThemedText';
 import ThemedView from '@/components/ThemedView';
+import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
+import { fontSizes, fontWeights, spacing } from '@/theme';
 
 export default function HomeScreen() {
+  const { colors } = useTheme();
+  
   return (
     <SafeAreaView style={commonStyles.safeArea}>
       <ParallaxScrollView
@@ -21,7 +25,7 @@ export default function HomeScreen() {
           />
         }>
         <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title" style={styles.helloWorldStyle}>Hello World!</ThemedText>
+          <ThemedText type="title" style={[styles.helloWorldStyle, { color: colors.primary }]}>Hello World!</ThemedText>
           <HelloWave />
         </ThemedView>
         <ThemedView style={styles.stepContainer}>
@@ -86,11 +90,11 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: spacing[2],
   },
   stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+    gap: spacing[2],
+    marginBottom: spacing[2],
   },
   reactLogo: {
     height: 178,
@@ -100,10 +104,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   helloWorldStyle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007AFF',
+    fontSize: fontSizes['2xl'],
+    fontWeight: fontWeights.bold,
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: spacing[5],
   }
 });

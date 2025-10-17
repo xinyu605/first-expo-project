@@ -9,9 +9,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SettingItem, SettingsItem } from '@/components/settings';
+import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
+import { fontSizes, fontWeights, spacing } from '@/theme';
 
 const SettingsScreen = () => {
+  const { colors } = useTheme();
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [userName, setUserName] = useState('');
@@ -62,33 +65,33 @@ const SettingsScreen = () => {
 
   return (
     <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>設定</Text>
+      <ScrollView style={[styles.container, { backgroundColor: colors.surface }]}>
+        <View style={[styles.header, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
+          <Text style={[styles.headerTitle, { color: colors.text }]}>設定</Text>
         </View>
         
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>一般設定</Text>
+        <View style={[styles.section, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text, backgroundColor: colors.surface }]}>一般設定</Text>
           {settingsItems.slice(0, 3).map((item) => (
             <View key={item.id}>
               <SettingItem 
                 item={item} 
                 onUserNameChange={setUserName}
               />
-              <View style={styles.separator} />
+              <View style={[styles.separator, { backgroundColor: colors.border }]} />
             </View>
           ))}
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>資料管理</Text>
+        <View style={[styles.section, { backgroundColor: colors.card }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text, backgroundColor: colors.surface }]}>資料管理</Text>
           {settingsItems.slice(3).map((item) => (
             <View key={item.id}>
               <SettingItem 
                 item={item} 
                 onUserNameChange={setUserName}
               />
-              <View style={styles.separator} />
+              <View style={[styles.separator, { backgroundColor: colors.border }]} />
             </View>
           ))}
         </View>
@@ -100,37 +103,29 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   header: {
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: spacing[5],
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: fontSizes['2xl'],
+    fontWeight: fontWeights.bold,
   },
   section: {
-    marginTop: 20,
-    backgroundColor: '#fff',
-    marginHorizontal: 16,
-    borderRadius: 8,
+    marginTop: spacing[5],
+    marginHorizontal: spacing[4],
+    borderRadius: spacing[2],
     overflow: 'hidden',
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#666',
-    padding: 16,
-    backgroundColor: '#f8f8f8',
+    fontSize: fontSizes.base,
+    fontWeight: fontWeights.semibold,
+    padding: spacing[4],
   },
   separator: {
     height: 1,
-    backgroundColor: '#e0e0e0',
-    marginLeft: 16,
+    marginLeft: spacing[4],
   },
 });
 
