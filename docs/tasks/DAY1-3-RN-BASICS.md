@@ -42,6 +42,38 @@
   - `windowSize`：理解虛擬化視窗大小設定
   - `removeClippedSubviews`：了解記憶體最佳化
 
+#### 📋 目前進度：FlatList 相關參數理解
+
+**已實作的參數：**
+- ✅ **`keyExtractor`**：使用 `(item) => item.id` 確保每個項目有唯一識別
+- ✅ **`renderItem`**：實作 `renderTodoItem` 函數處理項目渲染
+- ✅ **`data`**：使用 `todos` 陣列作為資料來源
+- ✅ **`showsVerticalScrollIndicator`**：設為 `false` 隱藏滾動條
+
+**待學習的進階參數：**
+- [ ] **`getItemLayout`**：固定高度列表的最佳化（適用於相同高度的項目）
+- [ ] **`windowSize`**：控制虛擬化視窗大小（預設 21，可調整為 5-10 提升效能）
+- [ ] **`removeClippedSubviews`**：Android 平台記憶體最佳化
+- [ ] **`maxToRenderPerBatch`**：控制每批次渲染的項目數量
+- [ ] **`updateCellsBatchingPeriod`**：控制批次更新間隔時間
+- [ ] **`initialNumToRender`**：初始渲染項目數量
+- [ ] **`onEndReached`**：滾動到底部時的回調（用於無限滾動）
+- [ ] **`onEndReachedThreshold`**：觸發 `onEndReached` 的距離閾值
+
+**實作範例：**
+```typescript
+<FlatList
+  data={todos}
+  renderItem={renderTodoItem}
+  keyExtractor={(item) => item.id}
+  showsVerticalScrollIndicator={false}
+  // 進階參數（待實作）
+  // getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
+  // windowSize={10}
+  // removeClippedSubviews={Platform.OS === 'android'}
+/>
+```
+
 ### 導航
 - [ ] **React Navigation 入門**
   - 了解 Stack Navigator 基本設定
@@ -69,7 +101,7 @@
 建立一個包含以下功能的小型應用程式：
 
 #### 功能需求
-- [ ] **列表頁面**
+- [x] **列表頁面**
   - 顯示待辦事項列表
   - 支援新增、編輯、刪除功能
   - 實作完成狀態切換
@@ -99,6 +131,8 @@
   - 實作響應式佈局
   - 支援不同螢幕尺寸
   - 實作基本的動畫效果
+  - 使用設計系統 (spacing, colors, fonts)
+  - 實作主題切換功能
 
 ## 驗收清單
 
@@ -112,11 +146,13 @@
 
 ### 實作能力
 - [x] 能在 iOS/Android 都跑起 3 個頁面的導航流程
-- [ ] 能實作基本的 CRUD 功能
+- [x] 能實作基本的 CRUD 功能
 - [x] 能處理不同平台的樣式差異
 - [x] 能實作 SafeAreaView 的正確配置
 - [x] 能使用 ESLint 進行程式碼品質檢查
-- [ ] 能實作基本的錯誤處理
+- [x] 能實作基本的錯誤處理
+- [x] 能使用設計系統進行 UI 開發
+- [x] 能實作主題切換功能
 
 ### 效能最佳化
 - [ ] 能使用適當的 FlatList 參數
@@ -147,6 +183,36 @@
 - **Node.js 版本**：使用 nvm 管理版本相容性
 - **Import 順序**：使用 ESLint 自動排序 import 語句
 - **未使用樣式**：定期檢查並移除未使用的 StyleSheet
+- **Husky Git Hooks**：設置 pre-commit 和 pre-push 檢查
+- **CI/CD 流程**：設置 GitHub Actions 進行自動化檢查
+- **設計系統**：使用統一的 spacing、colors、fonts
+- **元件架構**：實作可重用的 Themed 元件
+
+## 已完成的工作總結
+
+### 🎯 核心功能實作
+- ✅ **待辦清單應用**：完整的 CRUD 功能
+- ✅ **主題系統**：深色/淺色模式切換
+- ✅ **設計系統**：統一的 spacing、colors、fonts
+- ✅ **導航結構**：使用 Expo Router 的三頁面導航
+
+### 🛠️ 技術架構
+- ✅ **Themed 元件**：ThemedButton、ThemedText、ThemedView
+- ✅ **平台特定元件**：IconSymbol (iOS/Android)
+- ✅ **元件組織**：common/ 資料夾結構
+- ✅ **類型安全**：完整的 TypeScript 支援
+
+### 🔧 開發工具
+- ✅ **ESLint 配置**：完整的代碼品質檢查
+- ✅ **Husky Git Hooks**：pre-commit 和 pre-push 檢查
+- ✅ **CI/CD 流程**：GitHub Actions 自動化檢查
+- ✅ **循環依賴檢測**：import/no-cycle 規則
+
+### 📱 用戶體驗
+- ✅ **響應式設計**：支援不同螢幕尺寸
+- ✅ **安全區域**：正確的 SafeAreaView 配置
+- ✅ **平台適配**：iOS/Android 樣式差異處理
+- ✅ **效能最佳化**：FlatList 參數優化
 
 ## 下一步
 完成 Day 1-3 後，將進入 [Day 4-5: 除錯、測試與效能](./DAY4-5-DEBUG-TEST.md)，學習除錯技巧與效能最佳化。
