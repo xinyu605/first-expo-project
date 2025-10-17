@@ -1,6 +1,6 @@
 import Animated from 'react-native-reanimated';
 
-export function HelloWave() {
+const HelloWave = () => {
   return (
     <Animated.Text
       style={{
@@ -16,4 +16,6 @@ export function HelloWave() {
       👋
     </Animated.Text>
   );
-}
+};
+
+export default HelloWave;

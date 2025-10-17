@@ -3,10 +3,10 @@ import { Link } from 'expo-router';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import HelloWave from '@/components/HelloWave';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import ThemedText from '@/components/ThemedText';
+import ThemedView from '@/components/ThemedView';
 import { commonStyles } from '@/styles/common';
 
 export default function HomeScreen() {
