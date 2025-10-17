@@ -1,11 +1,5 @@
-/**
- * Font definitions
- * Platform-specific font configurations and typography scale
- */
-
 import { Platform } from 'react-native';
 
-// Font families
 export const fonts = Platform.select({
   ios: {
     /** iOS `UIFontDescriptorSystemDesignDefault` */
@@ -31,7 +25,6 @@ export const fonts = Platform.select({
   },
 });
 
-// Font sizes - typography scale
 export const fontSizes = {
   xs: 12,
   sm: 14,
@@ -48,7 +41,6 @@ export const fontSizes = {
   '9xl': 128,
 } as const;
 
-// Font weights
 export const fontWeights = {
   thin: '100',
   extralight: '200',
@@ -61,7 +53,6 @@ export const fontWeights = {
   black: '900',
 } as const;
 
-// Line heights
 export const lineHeights = {
   none: 1,
   tight: 1.25,
@@ -71,7 +62,6 @@ export const lineHeights = {
   loose: 2,
 } as const;
 
-// Letter spacing
 export const letterSpacings = {
   tighter: -0.05,
   tight: -0.025,
@@ -81,7 +71,6 @@ export const letterSpacings = {
   widest: 0.1,
 } as const;
 
-// Typography presets for common use cases
 export const typography = {
   // Headings
   h1: {

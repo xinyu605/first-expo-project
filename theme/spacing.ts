@@ -1,12 +1,5 @@
-/**
- * Spacing system based on 4px grid
- * Provides consistent spacing values for margins, padding, and gaps
- */
-
-// Base spacing unit (4px)
 const baseUnit = 4;
 
-// Spacing scale from 0 to 12 (0px to 48px)
 export const spacing = {
   0: 0,
   1: baseUnit * 1,    // 4px
@@ -23,7 +16,6 @@ export const spacing = {
   12: baseUnit * 12,  // 48px
 } as const;
 
-// Type definitions
 export type SpacingKey = keyof typeof spacing;
 
 export default spacing;

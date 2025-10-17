@@ -1,13 +1,6 @@
-/**
- * Semantic color palette mapping
- * Maps semantic tokens to actual color values from the color palette
- */
-
 import { colors } from './colors';
 
-// Light theme semantic mapping
 export const lightPalette = {
-  // Base colors
   text: colors.neutral[9],
   background: colors.neutral[0],
   surface: colors.neutral[1],
@@ -39,9 +32,7 @@ export const lightPalette = {
   tint: colors.primary[6],
 } as const;
 
-// Dark theme semantic mapping
 export const darkPalette = {
-  // Base colors
   text: colors.neutral[0],
   background: colors.neutral[9],
   surface: colors.neutral[8],
