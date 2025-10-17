@@ -32,7 +32,6 @@ const ThemedButton = ({
       justifyContent: 'center' as const,
     };
 
-    // Size styles
     const sizeStyles = {
       small: {
         paddingHorizontal: spacing[3],
@@ -48,7 +47,6 @@ const ThemedButton = ({
       },
     };
 
-    // Variant styles
     const variantStyles = {
       primary: {
         backgroundColor: disabled ? colors.border : colors.primary,
@@ -73,7 +71,6 @@ const ThemedButton = ({
       fontWeight: fontWeights.semibold,
     };
 
-    // Size text styles
     const sizeTextStyles = {
       small: {
         fontSize: fontSizes.sm,
@@ -86,7 +83,6 @@ const ThemedButton = ({
       },
     };
 
-    // Variant text styles
     const variantTextStyles = {
       primary: {
         color: disabled ? colors.placeholder : colors.primaryText,
