@@ -1,4 +1,5 @@
 import { SettingItem, SettingsItem } from '@/components/settings';
+import { commonStyles } from '@/styles/common';
 import React, { useState } from 'react';
 import {
   Alert,
@@ -7,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SettingsScreen = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -58,37 +60,39 @@ const SettingsScreen = () => {
 
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>設定</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>一般設定</Text>
-        {settingsItems.slice(0, 3).map((item) => (
-          <View key={item.id}>
-            <SettingItem 
-              item={item} 
-              onUserNameChange={setUserName}
-            />
-            <View style={styles.separator} />
-          </View>
-        ))}
-      </View>
+    <SafeAreaView style={commonStyles.safeArea}>
+      <ScrollView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>設定</Text>
+        </View>
+        
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>一般設定</Text>
+          {settingsItems.slice(0, 3).map((item) => (
+            <View key={item.id}>
+              <SettingItem 
+                item={item} 
+                onUserNameChange={setUserName}
+              />
+              <View style={styles.separator} />
+            </View>
+          ))}
+        </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>資料管理</Text>
-        {settingsItems.slice(3).map((item) => (
-          <View key={item.id}>
-            <SettingItem 
-              item={item} 
-              onUserNameChange={setUserName}
-            />
-            <View style={styles.separator} />
-          </View>
-        ))}
-      </View>
-    </ScrollView>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>資料管理</Text>
+          {settingsItems.slice(3).map((item) => (
+            <View key={item.id}>
+              <SettingItem 
+                item={item} 
+                onUserNameChange={setUserName}
+              />
+              <View style={styles.separator} />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
