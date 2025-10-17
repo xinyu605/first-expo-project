@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import ThemedButton from '@/components/common/ThemedButton';
 import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
 import { fontSizes, fontWeights } from '@/theme';
@@ -105,12 +106,12 @@ const TodoListScreen = () => {
           {item.title}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.deleteButton, { backgroundColor: colors.secondary }]}
+      <ThemedButton
+        title="刪除"
         onPress={() => deleteTodo(item.id)}
-      >
-        <Text style={[styles.deleteButtonText, { color: colors.secondaryText }]}>刪除</Text>
-      </TouchableOpacity>
+        variant="danger"
+        size="small"
+      />
     </View>
   );
 
@@ -134,12 +135,12 @@ const TodoListScreen = () => {
             placeholder="新增待辦事項..."
             placeholderTextColor={colors.placeholder}
           />
-          <TouchableOpacity 
-            style={[styles.addButton, { backgroundColor: colors.primary }]} 
+          <ThemedButton 
+            title="新增"
             onPress={addTodo}
-          >
-            <Text style={[styles.addButtonText, { color: colors.primaryText }]}>新增</Text>
-          </TouchableOpacity>
+            variant="primary"
+            size="medium"
+          />
         </View>
 
         <FlatList
@@ -176,16 +177,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     fontSize: fontSizes.base,
-  },
-  addButton: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 8,
-    justifyContent: 'center',
-  },
-  addButtonText: {
-    fontSize: fontSizes.base,
-    fontWeight: fontWeights.semibold,
   },
   list: {
     flex: 1,
@@ -228,15 +219,6 @@ const styles = StyleSheet.create({
   },
   todoTitleCompleted: {
     textDecorationLine: 'line-through',
-  },
-  deleteButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  deleteButtonText: {
-    fontSize: fontSizes.sm,
-    fontWeight: fontWeights.medium,
   },
 });
 
