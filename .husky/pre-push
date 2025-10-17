@@ -1,0 +1,17 @@
+echo "🔍 Running pre-push checks..."
+
+echo "📝 Running TypeScript check..."
+yarn tsc
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript check failed!"
+  exit 1
+fi
+
+echo "🔧 Running ESLint check..."
+yarn lint
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint check failed!"
+  exit 1
+fi
+
+echo "✅ All checks passed! Ready to push."
