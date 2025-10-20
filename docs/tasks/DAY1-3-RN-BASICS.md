@@ -36,43 +36,52 @@
   - 理解 SafeAreaProvider 的配置
 
 ### List 與效能
-- [ ] **FlatList 正確參數**
+- [x] **FlatList 正確參數**
   - `keyExtractor`：了解唯一鍵的重要性
   - `getItemLayout`：掌握固定高度列表的最佳化
   - `windowSize`：理解虛擬化視窗大小設定
   - `removeClippedSubviews`：了解記憶體最佳化
 
-#### 📋 目前進度：FlatList 相關參數理解
+#### 📋 FlatList 進階參數實作完成
 
-**已實作的參數：**
+**已實作的所有參數：**
 - ✅ **`keyExtractor`**：使用 `(item) => item.id` 確保每個項目有唯一識別
-- ✅ **`renderItem`**：實作 `renderTodoItem` 函數處理項目渲染
+- ✅ **`renderItem`**：實作 `renderTodoItem` 函數處理項目渲染，使用 `useCallback` 優化
 - ✅ **`data`**：使用 `todos` 陣列作為資料來源
 - ✅ **`showsVerticalScrollIndicator`**：設為 `false` 隱藏滾動條
-
-**待學習的進階參數：**
-- [ ] **`getItemLayout`**：固定高度列表的最佳化（適用於相同高度的項目）
-- [ ] **`windowSize`**：控制虛擬化視窗大小（預設 21，可調整為 5-10 提升效能）
-- [ ] **`removeClippedSubviews`**：Android 平台記憶體最佳化
-- [ ] **`maxToRenderPerBatch`**：控制每批次渲染的項目數量
-- [ ] **`updateCellsBatchingPeriod`**：控制批次更新間隔時間
-- [ ] **`initialNumToRender`**：初始渲染項目數量
-- [ ] **`onEndReached`**：滾動到底部時的回調（用於無限滾動）
-- [ ] **`onEndReachedThreshold`**：觸發 `onEndReached` 的距離閾值
+- ✅ **`getItemLayout`**：固定高度列表的最佳化（ITEM_HEIGHT = 80px）
+- ✅ **`windowSize`**：控制虛擬化視窗大小（設定為 10，預設 21）
+- ✅ **`removeClippedSubviews`**：Android 平台記憶體最佳化
+- ✅ **`maxToRenderPerBatch`**：控制每批次渲染的項目數量（設定為 5）
+- ✅ **`updateCellsBatchingPeriod`**：控制批次更新間隔時間（設定為 100ms）
+- ✅ **`initialNumToRender`**：初始渲染項目數量（設定為 15）
+- ✅ **`onEndReached`**：滾動到底部時的回調（實作 Alert 提示）
+- ✅ **`onEndReachedThreshold`**：觸發 `onEndReached` 的距離閾值（設定為 0.3）
 
 **實作範例：**
 ```typescript
 <FlatList
   data={todos}
   renderItem={renderTodoItem}
-  keyExtractor={(item) => item.id}
+  keyExtractor={keyExtractor}
+  style={styles.list}
   showsVerticalScrollIndicator={false}
-  // 進階參數（待實作）
-  // getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
-  // windowSize={10}
-  // removeClippedSubviews={Platform.OS === 'android'}
+  getItemLayout={getItemLayout}
+  windowSize={10}
+  removeClippedSubviews={Platform.OS === 'android'}
+  maxToRenderPerBatch={5}
+  updateCellsBatchingPeriod={100}
+  initialNumToRender={15}
+  onEndReached={handleEndReached}
+  onEndReachedThreshold={0.3}
 />
 ```
+
+**性能優化技巧：**
+- 使用 `useCallback` 優化所有函數，避免不必要的重新渲染
+- 將常數（如 `ITEM_HEIGHT`）移到元件外，避免每次渲染重新宣告
+- 使用 `React.memo` 和適當的依賴陣列管理
+- 實作固定高度的 `getItemLayout` 提升滾動性能
 
 ### 導航
 - [ ] **React Navigation 入門**
@@ -137,7 +146,7 @@
 ## 驗收清單
 
 ### 技術理解
-- [ ] 能說明 FlatList 為何需要 `keyExtractor` 與 `getItemLayout`
+- [x] 能說明 FlatList 為何需要 `keyExtractor` 與 `getItemLayout`
 - [x] 能解釋 Flexbox 佈局的基本原理
 - [x] 能說明 Platform.select() 的使用時機
 - [x] 能說明 PlatformColor 的用途與系統色彩使用
@@ -155,12 +164,12 @@
 - [x] 能實作主題切換功能
 
 ### 效能最佳化
-- [ ] 能使用適當的 FlatList 參數
+- [x] 能使用適當的 FlatList 參數
 - [x] 能避免不必要的 re-render
 - [x] 能使用 React.memo 進行元件最佳化
 - [x] 能將 inline style 移到 StyleSheet 提升效能
 - [x] 能移除未使用的樣式保持程式碼整潔
-- [ ] 能實作基本的記憶體管理
+- [x] 能實作基本的記憶體管理
 
 ## 常見問題與解決方案
 
@@ -212,7 +221,9 @@
 - ✅ **響應式設計**：支援不同螢幕尺寸
 - ✅ **安全區域**：正確的 SafeAreaView 配置
 - ✅ **平台適配**：iOS/Android 樣式差異處理
-- ✅ **效能最佳化**：FlatList 參數優化
+- ✅ **效能最佳化**：完整的 FlatList 進階參數實作
+- ✅ **記憶體管理**：Android 平台 `removeClippedSubviews` 優化
+- ✅ **滾動體驗**：固定高度 `getItemLayout` 提升滾動流暢度
 
 ## 下一步
 完成 Day 1-3 後，將進入 [Day 4-5: 除錯、測試與效能](./DAY4-5-DEBUG-TEST.md)，學習除錯技巧與效能最佳化。

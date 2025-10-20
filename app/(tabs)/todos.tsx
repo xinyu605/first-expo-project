@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
+  Alert,
   FlatList,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -21,69 +23,64 @@ type TodoItem = {
   createdAt: Date;
 };
 
+const ITEM_HEIGHT = 80;
+
 const TodoListScreen = () => {
   const { colors } = useTheme();
-  const [todos, setTodos] = useState<TodoItem[]>([
-    {
-      id: '1',
-      title: '學習 React Native Core Components',
-      completed: true,
-      createdAt: new Date('2024-01-01'),
-    },
-    {
-      id: '2',
-      title: '實作 SafeAreaView 配置',
-      completed: true,
-      createdAt: new Date('2024-01-02'),
-    },
-    {
-      id: '3',
-      title: '學習 FlatList 最佳化參數',
-      completed: false,
-      createdAt: new Date('2024-01-03'),
-    },
-    {
-      id: '4',
-      title: '實作 keyExtractor 功能',
-      completed: false,
-      createdAt: new Date('2024-01-04'),
-    },
-    {
-      id: '5',
-      title: '學習 getItemLayout 最佳化',
-      completed: false,
-      createdAt: new Date('2024-01-05'),
-    },
-  ]);
+  
+  const generateMockTodos = (count: number): TodoItem[] => {
+    return Array.from({ length: count }, (_, index) => ({
+      id: `${index + 1}`,
+      title: `待辦事項 ${index + 1} - 學習 FlatList 進階參數`,
+      completed: Math.random() > 0.5,
+      createdAt: new Date(2024, 0, index + 1),
+    }));
+  };
+
+  const [todos, setTodos] = useState<TodoItem[]>(generateMockTodos(50));
 
   const [newTodoTitle, setNewTodoTitle] = useState('');
 
-  const addTodo = () => {
-    if (newTodoTitle.trim()) {
-      const newTodo: TodoItem = {
-        id: Date.now().toString(),
-        title: newTodoTitle.trim(),
-        completed: false,
-        createdAt: new Date(),
-      };
-      setTodos(prev => [newTodo, ...prev]);
-      setNewTodoTitle('');
-    }
-  };
+  const addTodo = useCallback(() => {
+    if (!newTodoTitle.trim()) return;
+    const newTodo: TodoItem = {
+      id: Date.now().toString(),
+      title: newTodoTitle.trim(),
+      completed: false,
+      createdAt: new Date(),
+    };
+    setTodos(prev => [newTodo, ...prev]);
+    setNewTodoTitle('');
+  }, [newTodoTitle]);
 
-  const toggleTodo = (id: string) => {
+  const toggleTodo = useCallback((id: string) => {
     setTodos(prev =>
       prev.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
-  };
+  }, []);
 
-  const deleteTodo = (id: string) => {
+  const deleteTodo = useCallback((id: string) => {
     setTodos(prev => prev.filter(todo => todo.id !== id));
-  };
+  }, []);
 
-  const renderTodoItem = ({ item }: { item: TodoItem }) => (
+  const getItemLayout = useCallback((_data: ArrayLike<TodoItem> | null | undefined, index: number) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+  }), []);
+
+  const handleEndReached = useCallback(() => {
+    Alert.alert(
+      '滾動到底部',
+      '已觸發 onEndReached 回調！\n這通常用於載入更多數據。',
+      [{ text: '確定' }]
+    );
+  }, []);
+
+
+  const renderTodoItem = useCallback(({ item }: { item: TodoItem }) => (
     <View style={[styles.todoItem, { backgroundColor: colors.card, shadowColor: colors.shadow }]}>
       <TouchableOpacity
         style={styles.todoContent}
@@ -113,7 +110,9 @@ const TodoListScreen = () => {
         size="small"
       />
     </View>
-  );
+  ), [colors, toggleTodo, deleteTodo]);
+
+  const keyExtractor = useCallback((item: TodoItem) => item.id, []);
 
   return (
     <SafeAreaView style={commonStyles.safeArea}>
@@ -146,9 +145,17 @@ const TodoListScreen = () => {
         <FlatList
           data={todos}
           renderItem={renderTodoItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={keyExtractor}
           style={styles.list}
           showsVerticalScrollIndicator={false}
+          getItemLayout={getItemLayout}
+          windowSize={10}
+          removeClippedSubviews={Platform.OS === 'android'}
+          maxToRenderPerBatch={5}
+          updateCellsBatchingPeriod={100}
+          initialNumToRender={15}
+          onEndReached={handleEndReached}
+          onEndReachedThreshold={0.3}
         />
       </View>
     </SafeAreaView>
@@ -187,6 +194,7 @@ const styles = StyleSheet.create({
     padding: spacing[4],
     marginBottom: spacing[2],
     borderRadius: spacing[2],
+    height: 80, // 固定高度，與 getItemLayout 中的 ITEM_HEIGHT 一致
     shadowOffset: {
       width: 0,
       height: 1,
