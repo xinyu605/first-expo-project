@@ -1,0 +1,15 @@
+---
+description: Expo Prebuild and Native Environment Configuration Guidelines
+globs: 'app.config.{ts,js}, app.json, package.json, ios/**/*, android/**/*, plugins/**/*'
+alwaysApply: false
+---
+
+# Expo Native & Config Plugin Rules
+
+- **Strict Prohibited**: NEVER manually edit files in `/ios` or `/android`.
+- **Config Plugins**:
+  - Store logic in `plugins/scripts/`.
+  - Create entry in `plugins/with-[name].js`.
+  - Register in `app.config.ts` plugins array.
+- **Optimization**: Use `react-native-fast-image`. Optimize `FlatList` with `windowSize` and `maxToRenderPerBatch`.
+- **Deployment**: Use EAS Build and follow the Expo Prebuild continuous generation workflow.

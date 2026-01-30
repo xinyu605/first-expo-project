@@ -1,0 +1,14 @@
+---
+description: Task management SOP
+globs: 'TASKS.md, docs/tasks/**/*.md'
+---
+
+# Task Lifecycle Manager
+
+1. **Structure**:
+   - `TASKS.md`: High-level index.
+   - `docs/tasks/*.md`: Detailed feature phases.
+2. **Behavior**:
+   - After coding, update progress in the respective file (`[x]`).
+   - Feature completion: Move to `docs/tasks/archive/` and update `TASKS.md` (YYYY/MM/DD).
+3. **Documentation**: Use UPPERCASE for feature doc filenames.
