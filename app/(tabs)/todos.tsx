@@ -6,24 +6,16 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import ThemedButton from '@/components/common/ThemedButton';
+import { TodoItemRow, TODO_ITEM_HEIGHT } from '@/components/todos';
+import type { TodoItem } from '@/components/todos';
 import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
 import { fontSizes, fontWeights, spacing } from '@/theme';
-
-type TodoItem = {
-  id: string;
-  title: string;
-  completed: boolean;
-  createdAt: Date;
-};
-
-const ITEM_HEIGHT = 80;
 
 const TodoListScreen = () => {
   const { colors } = useTheme();
@@ -66,53 +58,47 @@ const TodoListScreen = () => {
   }, []);
 
   const getItemLayout = useCallback((_data: ArrayLike<TodoItem> | null | undefined, index: number) => ({
-    length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * index,
+    length: TODO_ITEM_HEIGHT,
+    offset: TODO_ITEM_HEIGHT * index,
     index,
   }), []);
 
   const handleEndReached = useCallback(() => {
+    // 僅在列表有足夠項目時才顯示提示，避免清空待辦時反覆彈窗
+    if (todos.length <= 5) return;
     Alert.alert(
       '滾動到底部',
       '已觸發 onEndReached 回調！\n這通常用於載入更多數據。',
       [{ text: '確定' }]
     );
-  }, []);
+  }, [todos.length]);
 
 
-  const renderTodoItem = useCallback(({ item }: { item: TodoItem }) => (
-    <View style={[styles.todoItem, { backgroundColor: colors.card, shadowColor: colors.shadow }]}>
-      <TouchableOpacity
-        style={styles.todoContent}
-        onPress={() => toggleTodo(item.id)}
-      >
-        <View style={[
-          styles.checkbox, 
-          { borderColor: colors.border },
-          item.completed && { backgroundColor: colors.primary, borderColor: colors.primary }
-        ]}>
-          {item.completed && <Text style={[styles.checkmark, { color: colors.primaryText }]}>✓</Text>}
-        </View>
-        <Text
-          style={[
-            styles.todoTitle,
-            { color: colors.text },
-            item.completed && styles.todoTitleCompleted,
-          ]}
-        >
-          {item.title}
-        </Text>
-      </TouchableOpacity>
-      <ThemedButton
-        title="刪除"
-        onPress={() => deleteTodo(item.id)}
-        variant="danger"
-        size="small"
+  const renderTodoItem = useCallback(
+    ({ item }: { item: TodoItem }) => (
+      <TodoItemRow
+        item={item}
+        onToggle={toggleTodo}
+        onDelete={deleteTodo}
+        colors={colors}
       />
-    </View>
-  ), [colors, toggleTodo, deleteTodo]);
+    ),
+    [colors, toggleTodo, deleteTodo]
+  );
 
   const keyExtractor = useCallback((item: TodoItem) => item.id, []);
+
+  const renderListEmpty = useCallback(
+    () => (
+      <View style={styles.emptyState}>
+        <Text style={[styles.emptyStateTitle, { color: colors.text }]}>尚無待辦</Text>
+        <Text style={[styles.emptyStateHint, { color: colors.placeholder }]}>
+          從上方輸入框新增一筆
+        </Text>
+      </View>
+    ),
+    [colors]
+  );
 
   return (
     <SafeAreaView style={commonStyles.safeArea}>
@@ -146,6 +132,7 @@ const TodoListScreen = () => {
           data={todos}
           renderItem={renderTodoItem}
           keyExtractor={keyExtractor}
+          ListEmptyComponent={renderListEmpty}
           style={styles.list}
           showsVerticalScrollIndicator={false}
           getItemLayout={getItemLayout}
@@ -188,45 +175,18 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
   },
-  todoItem: {
-    flexDirection: 'row',
+  emptyState: {
+    paddingVertical: spacing[8],
+    paddingHorizontal: spacing[4],
     alignItems: 'center',
-    padding: spacing[4],
+  },
+  emptyStateTitle: {
+    fontSize: fontSizes.lg,
+    fontWeight: fontWeights.semibold,
     marginBottom: spacing[2],
-    borderRadius: spacing[2],
-    height: 80, // 固定高度，與 getItemLayout 中的 ITEM_HEIGHT 一致
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
   },
-  todoContent: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-    borderWidth: 2,
-    borderRadius: spacing[3],
-    marginRight: spacing[3],
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkmark: {
-    fontSize: fontSizes.base,
-    fontWeight: fontWeights.bold,
-  },
-  todoTitle: {
-    flex: 1,
-    fontSize: fontSizes.base,
-  },
-  todoTitleCompleted: {
-    textDecorationLine: 'line-through',
+  emptyStateHint: {
+    fontSize: fontSizes.sm,
   },
 });
 
