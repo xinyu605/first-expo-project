@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import ThemedButton from '@/components/common/ThemedButton';
 import type { DarkPalette, LightPalette } from '@/theme';
@@ -6,7 +7,6 @@ import type { DarkPalette, LightPalette } from '@/theme';
 import {
   StyledCheckbox,
   StyledCheckmark,
-  StyledTodoContent,
   StyledTodoItem,
   StyledTodoTitle,
 } from './styled';
@@ -16,33 +16,42 @@ export type Props = {
   item: TodoItem;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
+  onNavigateToDetail?: (item: TodoItem) => void;
   colors: LightPalette | DarkPalette;
 };
 
-const TodoItemRow = React.memo(({ item, onToggle, onDelete, colors }: Props) => (
-  <StyledTodoItem $cardColor={colors.card} $shadowColor={colors.shadow}>
-    <StyledTodoContent onPress={() => onToggle(item.id)}>
-      <StyledCheckbox
-        $borderColor={colors.border}
-        $isCompleted={item.completed}
-        $primaryColor={colors.primary}
+const TodoItemRow = React.memo(
+  ({ item, onToggle, onDelete, onNavigateToDetail, colors }: Props) => (
+    <StyledTodoItem $cardColor={colors.card} $shadowColor={colors.shadow}>
+      <TouchableOpacity onPress={() => onToggle(item.id)} activeOpacity={0.7}>
+        <StyledCheckbox
+          $borderColor={colors.border}
+          $isCompleted={item.completed}
+          $primaryColor={colors.primary}
+        >
+          {item.completed && (
+            <StyledCheckmark $color={colors.primaryText}>✓</StyledCheckmark>
+          )}
+        </StyledCheckbox>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        onPress={() => (onNavigateToDetail ? onNavigateToDetail(item) : onToggle(item.id))}
+        activeOpacity={0.7}
       >
-        {item.completed && (
-          <StyledCheckmark $color={colors.primaryText}>✓</StyledCheckmark>
-        )}
-      </StyledCheckbox>
-      <StyledTodoTitle $color={colors.text} $completed={item.completed}>
-        {item.title}
-      </StyledTodoTitle>
-    </StyledTodoContent>
-    <ThemedButton
-      title="刪除"
-      onPress={() => onDelete(item.id)}
-      variant="danger"
-      size="small"
-    />
-  </StyledTodoItem>
-));
+        <StyledTodoTitle $color={colors.text} $completed={item.completed}>
+          {item.title}
+        </StyledTodoTitle>
+      </TouchableOpacity>
+      <ThemedButton
+        title="刪除"
+        onPress={() => onDelete(item.id)}
+        variant="danger"
+        size="small"
+      />
+    </StyledTodoItem>
+  )
+);
 
 TodoItemRow.displayName = 'TodoItemRow';
 
