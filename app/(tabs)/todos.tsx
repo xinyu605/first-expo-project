@@ -1,3 +1,5 @@
+import type { Href } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import {
   Alert,
@@ -11,13 +13,14 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import ThemedButton from '@/components/common/ThemedButton';
-import { TodoItemRow, TODO_ITEM_HEIGHT } from '@/components/todos';
 import type { TodoItem } from '@/components/todos';
+import { TODO_ITEM_HEIGHT, TodoItemRow } from '@/components/todos';
 import { useTheme } from '@/hooks/useTheme';
 import { commonStyles } from '@/styles/common';
 import { fontSizes, fontWeights, spacing } from '@/theme';
 
 const TodoListScreen = () => {
+  const router = useRouter();
   const { colors } = useTheme();
   
   const generateMockTodos = (count: number): TodoItem[] => {
@@ -74,16 +77,30 @@ const TodoListScreen = () => {
   }, [todos.length]);
 
 
+  const navigateToDetail = useCallback(
+    (item: TodoItem) => {
+      const params = new URLSearchParams({
+        title: item.title,
+        completed: String(item.completed),
+        createdAt: item.createdAt.toISOString(),
+      });
+      const href = `/todos/${item.id}?${params.toString()}` as Href;
+      router.push(href);
+    },
+    [router]
+  );
+
   const renderTodoItem = useCallback(
     ({ item }: { item: TodoItem }) => (
       <TodoItemRow
         item={item}
         onToggle={toggleTodo}
         onDelete={deleteTodo}
+        onNavigateToDetail={navigateToDetail}
         colors={colors}
       />
     ),
-    [colors, toggleTodo, deleteTodo]
+    [colors, toggleTodo, deleteTodo, navigateToDetail]
   );
 
   const keyExtractor = useCallback((item: TodoItem) => item.id, []);

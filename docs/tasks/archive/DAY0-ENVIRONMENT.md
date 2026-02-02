@@ -6,12 +6,12 @@
 ## 需要具備／安裝
 
 ### 1. 模擬器環境
-- [ ] **Xcode + iOS 模擬器** (macOS 專用)
+- [x] **Xcode + iOS 模擬器** (macOS 專用)
   - 下載：App Store 或 https://developer.apple.com/xcode/
   - 安裝 iOS 模擬器
   - 驗證：`xcode-select --print-path`
 
-- [ ] **Android Studio + Android 模擬器**
+- [x] **Android Studio + Android 模擬器**
   - 下載：https://developer.android.com/studio
   - 安裝 Android SDK
   - 建立 Android 虛擬裝置 (AVD)
